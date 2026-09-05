@@ -10,8 +10,8 @@ This 2017 project implements network address translation in Python 2 on CentOS 7
 
 - Era: high school, completed in 2017.
 - I wrote the eight Python modules and `NATscript.sh`.
-- The recovered final report describes the project as independently developed and identifies no collaborator.
-- `ICMPTypes.txt` is protocol reference data used by the implementation.
+- No collaborator attribution appears in those source headers. The recovered report uses a different Hebrew form of the submitter's name, so it is not used here as independent identity corroboration.
+- `ICMPTypes.txt` is protocol reference data used by the implementation; its original source and license were not recorded and remain unspecified.
 - Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
 - The implementation files are preserved byte-for-byte from the recovered project directory. Only repository documentation and validation metadata were added here.
 
@@ -36,7 +36,8 @@ The check is deliberately static: it verifies the complete selected source set, 
 ## Omitted Recovered Material
 
 - Seven generated `.pyc` files were omitted.
-- The final DOCX/PDF report and two preliminary DOCX files were not included because they expose a student ID and school/class submission details.
+- The final DOCX/PDF report and project-proposal DOCX were not included because they expose a student ID and school/class submission details.
+- The other preliminary DOCX was not included because it identifies a teacher/recipient and retains generic author metadata.
 - Two example reports by other students were excluded.
 - A separate 12-byte `NATFinal/ChangeHeader.py` fragment containing only `import scapy` was excluded because it is not part of the complete submitted code directory.
 

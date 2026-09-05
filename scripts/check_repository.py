@@ -15,6 +15,13 @@ PYTHON_FILES = {
     "UdpHandler.py",
 }
 PROJECT_FILES = PYTHON_FILES | {"NATscript.sh", "ICMPTypes.txt"}
+REPOSITORY_FILES = PROJECT_FILES | {
+    ".gitattributes",
+    ".gitignore",
+    "Makefile",
+    "README.md",
+    "scripts/check_repository.py",
+}
 
 
 def fail(message: str) -> None:
@@ -25,6 +32,15 @@ def fail(message: str) -> None:
 missing = sorted(name for name in PROJECT_FILES if not (ROOT / name).is_file())
 if missing:
     fail("Missing required NAT project files: " + ", ".join(missing))
+
+actual_files = {
+    path.relative_to(ROOT).as_posix()
+    for path in ROOT.rglob("*")
+    if path.is_file() and ".git" not in path.parts
+}
+unexpected = sorted(actual_files - REPOSITORY_FILES)
+if unexpected:
+    fail("Unapproved extra project files: " + ", ".join(unexpected))
 
 for name in PYTHON_FILES:
     source = (ROOT / name).read_text(encoding="utf-8", errors="strict")
@@ -73,8 +89,10 @@ private_markers = [
     "/" + "home" + "/",
     "C:" + "\\" + "Users",
 ]
-if any(marker in text for marker in private_markers) or re.search(
-    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+", text
+if (
+    any(marker in text for marker in private_markers)
+    or re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+", text)
+    or re.search(r"(?<!\d)\d{9}(?!\d)", text)
 ):
     fail("Privacy or machine-path marker found in tracked text")
 

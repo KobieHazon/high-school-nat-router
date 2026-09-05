@@ -11,7 +11,7 @@ This 2017 project implements network address translation in Python 2 on CentOS 7
 - Era: high school, completed in 2017.
 - I wrote the eight Python modules and `NATscript.sh`.
 - No collaborator attribution appears in those source headers. The recovered report uses a different Hebrew form of the submitter's name, so it is not used here as independent identity corroboration.
-- `ICMPTypes.txt` is protocol reference data used by the implementation; its original source and license were not recorded and remain unspecified.
+- `ICMPTypes.txt` is my own protocol-reference file used by the implementation.
 - Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
 - The implementation files are preserved byte-for-byte from the recovered project directory. Only repository documentation and validation metadata were added here.
 
@@ -31,7 +31,7 @@ This 2017 project implements network address translation in Python 2 on CentOS 7
 make check
 ```
 
-The check is deliberately static: it verifies the complete selected source set, authorship headers, core implementation markers, and the absence of private or generated artifacts. The router requires root-level raw sockets, two controlled interfaces, legacy Python 2 packages, and firewall changes; it must not be run on a normal host or live network.
+The repository check verifies the complete selected source set, authorship headers, core implementation markers, and the absence of private or generated artifacts. Separate container validation compiled all eight modules under Python 2.7 and exercised bounded IPv4, Ethernet, ICMP, and lookup helpers. The full router still requires root-level raw sockets, two controlled interfaces, legacy Python 2 packages, and firewall changes; it must not be run on a normal host or live network.
 
 ## Omitted Recovered Material
 

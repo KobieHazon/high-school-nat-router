@@ -11,6 +11,10 @@
 ##################################################################
 """
 
+import os
+
+REFERENCE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "ICMPTypes.txt")
+
 
 def get_icmp_id(pkt):
     return int((str(hex(int(str(hex(ord(pkt[38])))[2:] + str(hex(ord(pkt[39])))[2:], 16))))[2:], 16)
@@ -21,10 +25,10 @@ def get_icmp_sq_num(pkt):
 
 
 def icmp_type(pkt):
-    type_file = open('ICMPTypes.txt', 'r')
-    for line in type_file.readlines():
-        if line.find(str(hex(ord(pkt[34])))[2:]) != -1:
-            return line[line.find(':') + 1:line.index("\n")]
+    with open(REFERENCE_FILE, 'r') as type_file:
+        for line in type_file.readlines():
+            if line.find(str(hex(ord(pkt[34])))[2:]) != -1:
+                return line[line.find(':') + 1:line.index("\n")]
 
 
 def reset_icmp_check(pkt):

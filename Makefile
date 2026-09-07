@@ -1,4 +1,4 @@
 .PHONY: check
 
 check:
-	python3 scripts/check_repository.py
+	uv run --no-project python scripts/check_repository.py

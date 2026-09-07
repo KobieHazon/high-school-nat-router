@@ -14,13 +14,15 @@ PYTHON_FILES = {
     "TcpHandler.py",
     "UdpHandler.py",
 }
-PROJECT_FILES = PYTHON_FILES | {"NATscript.sh", "ICMPTypes.txt"}
+PYTHON_FILES = {"src/" + name for name in PYTHON_FILES}
+PROJECT_FILES = PYTHON_FILES | {"scripts/NATscript.sh", "data/ICMPTypes.txt"}
 REPOSITORY_FILES = PROJECT_FILES | {
     ".gitattributes",
     ".gitignore",
     "Makefile",
     "README.md",
     "scripts/check_repository.py",
+    "tests/test_helpers.py",
 }
 
 
@@ -56,7 +58,7 @@ for marker in [
     "class UdpNat",
     "socket.AF_PACKET",
     "iptables",
-    "python Main.py",
+    "src/Main.py",
 ]:
     if marker not in combined_source:
         fail(f"Missing expected NAT implementation marker: {marker}")

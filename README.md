@@ -9,21 +9,21 @@ This 2017 project implements network address translation in Python 2 on CentOS 7
 ## Provenance and Authorship
 
 - Era: high school, completed in 2017.
-- I wrote the eight Python modules and `NATscript.sh`.
+- I wrote the eight Python modules and `scripts/NATscript.sh`.
 - No collaborator attribution appears in those source headers. The recovered report uses a different Hebrew form of the submitter's name, so it is not used here as independent identity corroboration.
-- `ICMPTypes.txt` is my own protocol-reference file used by the implementation.
+- `data/ICMPTypes.txt` is my own protocol-reference file used by the implementation.
 - Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
-- The implementation files are preserved byte-for-byte from the recovered project directory. Only repository documentation and validation metadata were added here.
+- The recovered implementation is preserved in Git history. The layout follow-up moves source and data into dedicated directories and adapts only the launcher and ICMP reference-file lookup; it does not modernize the routing algorithm.
 
 ## Files
 
-- `Main.py` contains capture/sending threads, ARP state, NAT tables, and packet-routing logic.
-- `IpHandler.py`, `IcmpHandler.py`, `TcpHandler.py`, and `UdpHandler.py` parse and rewrite protocol fields.
-- `SendRecieve.py` rebuilds and sends packets through Scapy.
-- `NATmonitor.py` provides the wxPython traffic monitor.
-- `LoggingSystem.py` implements command-line logging modes.
-- `NATscript.sh` configures the historical firewall prerequisites and starts the program.
-- `ICMPTypes.txt` maps ICMP type numbers to names.
+- `src/Main.py` contains capture/sending threads, ARP state, NAT tables, and packet-routing logic.
+- `src/IpHandler.py`, `src/IcmpHandler.py`, `src/TcpHandler.py`, and `src/UdpHandler.py` parse and rewrite protocol fields.
+- `src/SendRecieve.py` rebuilds and sends packets through Scapy.
+- `src/NATmonitor.py` provides the wxPython traffic monitor.
+- `src/LoggingSystem.py` implements command-line logging modes.
+- `scripts/NATscript.sh` configures the historical firewall prerequisites and starts the program.
+- `data/ICMPTypes.txt` maps ICMP type numbers to names.
 
 ## Validate
 
@@ -42,3 +42,12 @@ The repository check verifies the complete selected source set, authorship heade
 - A separate 12-byte `NATFinal/ChangeHeader.py` fragment containing only `import scapy` was excluded because it is not part of the complete submitted code directory.
 
 The original recovered archive remains the local source of record for those artifacts.
+
+## Repository layout
+
+- `src/`: the eight historical Python 2 implementation modules; sibling imports are unchanged.
+- `data/`: read-only ICMP reference data, resolved relative to the module rather than the current directory.
+- `scripts/`: repository checks and the privileged historical CentOS launcher.
+- `tests/`: offline packet-helper and resource-path regression checks.
+
+Run `make check` from the repository root. In a disposable Python 2.7 Linux environment, run `python -B tests/test_helpers.py`; these tests do not capture packets or modify networking. Only in the separately configured, isolated CentOS routing lab, the launcher is `bash scripts/NATscript.sh`. It changes firewall rules and is not a setup command for a normal computer.

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+project_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
 trap "" HUP
 
 iptables -A FORWARD -j DROP
@@ -9,5 +11,5 @@ systemctl restart iptables
 
 trap - HUP
 echo -e "Enter NAT program parameters:"
-read parameters
-python Main.py $parameters
+read -r -a parameters
+python "$project_root/src/Main.py" "${parameters[@]}"

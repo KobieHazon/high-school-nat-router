@@ -6,14 +6,13 @@ My high-school software NAT router project.
 
 This 2017 project implements network address translation in Python 2 on CentOS 7. It captures Ethernet frames from two interfaces, maintains ARP and per-protocol NAT state, rewrites ICMP/TCP/UDP packet fields, transmits rebuilt packets, records logs, and displays recent traffic in a wxPython monitor.
 
-## Provenance and Authorship
+## Project background
 
-- Era: high school, completed in 2017.
-- I wrote the eight Python modules and `scripts/NATscript.sh`.
-- No collaborator attribution appears in those source headers. The recovered report uses a different Hebrew form of the submitter's name, so it is not used here as independent identity corroboration.
-- `data/ICMPTypes.txt` is my own protocol-reference file used by the implementation.
-- Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
-- The recovered implementation is preserved in Git history. The layout follow-up moves source and data into dedicated directories and adapts only the launcher and ICMP reference-file lookup; it does not modernize the routing algorithm.
+I completed this project in high school in 2017. The eight Python modules and `scripts/NATscript.sh` contain my implementation, and `data/ICMPTypes.txt` is my protocol-reference file.
+
+Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
+
+The recovered implementation is preserved in Git history. The layout follow-up moves source and data into dedicated directories and adapts only the launcher and ICMP reference-file lookup; it does not modernize the routing algorithm.
 
 ## Files
 

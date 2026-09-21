@@ -155,11 +155,11 @@ class PacketSender(threading.Thread):  # Responsible for sending out the waiting
                             logging.debug('Interface %s sent packet: \n%s', self.interface_name, summary_dump(pkt))
                             gui_entry('Outgoing', gui_parse(pkt))
                             if ord(pkt[23]) == 1:
-                                send_icmp(pkt)
+                                send_icmp(pkt, iface=InterfaceList[1])
                             elif ord(pkt[23]) == 6:
-                                send_tcp(pkt)
+                                send_tcp(pkt, iface=InterfaceList[1])
                             elif ord(pkt[23]) == 17:
-                                send_udp(pkt)
+                                send_udp(pkt, iface=InterfaceList[1])
                 except Exception, message:
                     logging.error(message)
 
@@ -173,12 +173,12 @@ class PacketSender(threading.Thread):  # Responsible for sending out the waiting
                             logging.debug('Interface %s sent packet: \n%s', self.interface_name, summary_dump(pkt))
                             gui_entry('Outgoing', gui_parse(pkt))
                             if ord(pkt[23]) == 1:
-                                send_icmp(pkt)
+                                send_icmp(pkt, iface=InterfaceList[2])
                                 ICMPNat.remove_packet(pkt)  #Change Location
                             elif ord(pkt[23]) == 6:
-                                send_tcp(pkt)
+                                send_tcp(pkt, iface=InterfaceList[2])
                             elif ord(pkt[23]) == 17:
-                                send_udp(pkt)
+                                send_udp(pkt, iface=InterfaceList[2])
                 except Exception, message:
                     logging.error(message)
 

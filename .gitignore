@@ -7,3 +7,5 @@ Thumbs.db
 *.doc
 *.docx
 *.pdf
+
+!/docs/project-report.pdf

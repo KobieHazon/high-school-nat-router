@@ -12,8 +12,6 @@ I completed this project in high school in 2017. The eight Python modules and `s
 
 Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the source; their code is not included.
 
-The recovered implementation is preserved in Git history. The layout follow-up moves source and data into dedicated directories and adapts only the launcher and ICMP reference-file lookup; it does not modernize the routing algorithm.
-
 ## Files
 
 - `src/Main.py` contains capture/sending threads, ARP state, NAT tables, and packet-routing logic.
@@ -30,23 +28,19 @@ The recovered implementation is preserved in Git history. The layout follow-up m
 make check
 ```
 
-The repository check verifies the complete selected source set, authorship headers, core implementation markers, and the absence of private or generated artifacts. Separate container validation compiled all eight modules under Python 2.7 and exercised bounded IPv4, Ethernet, ICMP, and lookup helpers. The full router still requires root-level raw sockets, two controlled interfaces, legacy Python 2 packages, and firewall changes; it must not be run on a normal host or live network.
+`make test` builds a Python 2.7 environment with real Scapy, dpkt, and wxPython, then runs the packet and helper tests with external networking disabled. The tests exercise TCP/UDP translation in both directions, independent client mappings, state cleanup, ICMP source/payload preservation, and rebuilt IP checksums. Interface/ARP discovery uses fixed lab addresses, and transmission is captured at the send boundary; no packets leave the container.
 
-## Omitted Recovered Material
-
-- Seven generated `.pyc` files were omitted.
-- The final DOCX/PDF report and project-proposal DOCX were not included because they expose a student ID and school/class submission details.
-- The other preliminary DOCX was not included because it identifies a teacher/recipient and retains generic author metadata.
-- Two example reports by other students were excluded.
-- A separate 12-byte `NATFinal/ChangeHeader.py` fragment containing only `import scapy` was excluded because it is not part of the complete submitted code directory.
-
-The original recovered archive remains the local source of record for those artifacts.
+Full two-interface forwarding, concurrent traffic, and the wxPython monitor's event loop are not covered by this suite. The privileged launcher belongs only in a disposable, isolated lab: it changes firewall rules and must not run on a normal host or live network.
 
 ## Repository layout
 
 - `src/`: the eight historical Python 2 implementation modules; sibling imports are unchanged.
 - `data/`: read-only ICMP reference data, resolved relative to the module rather than the current directory.
 - `scripts/`: repository checks and the privileged historical CentOS launcher.
-- `tests/`: offline packet-helper and resource-path regression checks.
+- `tests/`: packet-translation, packet-helper, and resource-path regression checks.
 
 Run `make check` from the repository root. In a disposable Python 2.7 Linux environment, run `python -B tests/test_helpers.py`; these tests do not capture packets or modify networking. Only in the separately configured, isolated CentOS routing lab, the launcher is `bash scripts/NATscript.sh`. It changes firewall rules and is not a setup command for a normal computer.
+
+## Project report
+
+[The project report](docs/project-report.pdf) covers the design, implementation, interface, and testing.

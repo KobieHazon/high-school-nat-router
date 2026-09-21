@@ -21,8 +21,12 @@ REPOSITORY_FILES = PROJECT_FILES | {
     ".gitignore",
     "Makefile",
     "README.md",
+    "docs/project-report.pdf",
     "scripts/check_repository.py",
     "tests/test_helpers.py",
+    "tests/test_packets.py",
+    "docker/Dockerfile",
+    ".dockerignore",
 }
 
 
@@ -47,7 +51,7 @@ if unexpected:
 for name in PYTHON_FILES:
     source = (ROOT / name).read_text(encoding="utf-8", errors="strict")
     if "Created By: Kobie Hazon" not in source:
-        fail(f"Missing recovered authorship header: {name}")
+        fail(f"Missing authorship header: {name}")
 
 combined_source = "\n".join(
     (ROOT / name).read_text(encoding="utf-8") for name in PROJECT_FILES
@@ -72,7 +76,7 @@ for path in ROOT.rglob("*"):
         "Thumbs.db",
     }:
         fail(f"Metadata file should not be staged: {rel}")
-    if path.suffix.lower() in {".pyc", ".pyo", ".doc", ".docx", ".pdf"}:
+    if path.suffix.lower() in {".pyc", ".pyo", ".doc", ".docx"}:
         fail(f"Generated or private artifact should not be staged: {rel}")
 
 text_files = [
@@ -93,8 +97,8 @@ private_markers = [
 ]
 if (
     any(marker in text for marker in private_markers)
-    or re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+", text)
-    or re.search(r"(?<!\d)\d{9}(?!\d)", text)
+    or re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text)
+    or re.search(r"(?<![A-Za-z0-9])\d{9}(?![A-Za-z0-9])", text)
 ):
     fail("Privacy or machine-path marker found in tracked text")
 

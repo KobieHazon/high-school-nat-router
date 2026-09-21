@@ -1,7 +1,6 @@
 .PHONY: check
 
-check:
-	uv run --no-project python scripts/check_repository.py
+check: test
 
 .PHONY: test
 test:

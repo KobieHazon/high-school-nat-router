@@ -25,7 +25,7 @@ Scapy, dpkt, and wxPython are third-party runtime dependencies referenced by the
 ## Validate
 
 ```sh
-make check
+make test
 ```
 
 `make test` builds a Python 2.7 environment with real Scapy, dpkt, and wxPython, then runs the packet and helper tests with external networking disabled. The tests exercise TCP/UDP translation in both directions, independent client mappings, state cleanup, ICMP source/payload preservation, and rebuilt IP checksums. Interface/ARP discovery uses fixed lab addresses, and transmission is captured at the send boundary; no packets leave the container.
@@ -36,10 +36,10 @@ Full two-interface forwarding, concurrent traffic, and the wxPython monitor's ev
 
 - `src/`: the eight historical Python 2 implementation modules; sibling imports are unchanged.
 - `data/`: read-only ICMP reference data, resolved relative to the module rather than the current directory.
-- `scripts/`: repository checks and the privileged historical CentOS launcher.
+- `scripts/`: the privileged historical CentOS launcher.
 - `tests/`: packet-translation, packet-helper, and resource-path regression checks.
 
-Run `make check` from the repository root. In a disposable Python 2.7 Linux environment, run `python -B tests/test_helpers.py`; these tests do not capture packets or modify networking. Only in the separately configured, isolated CentOS routing lab, the launcher is `bash scripts/NATscript.sh`. It changes firewall rules and is not a setup command for a normal computer.
+Run `make test` from the repository root. In a disposable Python 2.7 Linux environment, run `python -B tests/test_helpers.py`; these tests do not capture packets or modify networking. Only in the separately configured, isolated CentOS routing lab, the launcher is `bash scripts/NATscript.sh`. It changes firewall rules and is not a setup command for a normal computer.
 
 ## Project report
 
